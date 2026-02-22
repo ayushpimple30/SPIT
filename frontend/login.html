@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login with Verified Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
+</head>
+
+<body class="dark">
+
+  <div class="app">
+    <header class="header">
+      <h1>🔐 Login with Verified Wallet</h1>
+      <p class="tagline">
+        Passwordless • Blockchain-Verified • Zero-PII
+      </p>
+    </header>
+
+    <section class="card">
+      <h2>Wallet Login</h2>
+
+      <button id="btnLogin" class="btn btn-primary">
+        Connect Wallet & Login
+      </button>
+
+      <div id="loginStatus" class="status"></div>
+    </section>
+
+    <section class="card">
+      <h2>QR-Based Login (Demo)</h2>
+      <p class="hint">
+        Scan this QR from a wallet-enabled browser
+      </p>
+
+      <canvas id="qrCanvas"></canvas>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+<script src="verifier.js"></script>
+</body>
+</html>

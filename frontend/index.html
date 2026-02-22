@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identity Verification</title>
+
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- LEFT -->
+  <div class="content">
+
+    <header class="header">
+      <span class="badge">HIGH PERFORMANCE PROTOCOL</span>
+      <h1>Identity Verification</h1>
+      <p>Complete all modules to unlock your reputation score.</p>
+    </header>
+
+    <!-- WALLET -->
+    <section class="card">
+      <h3>1. Digital Wallet</h3>
+      <p>Establish cryptographic ownership</p>
+
+      <div class="wallet-box">
+        <span id="walletAddress">Not connected</span>
+        <button class="link-btn" id="btnConnect">RECONNECT</button>
+      </div>
+
+      <button class="btn-primary" id="btnConnect">
+        VERIFY OWNERSHIP
+      </button>
+
+      <div id="walletStatus" class="status"></div>
+    </section>
+
+    <!-- AADHAAR -->
+    <section class="card">
+      <h3>2. Aadhaar Verification</h3>
+      <p>Government issued unique identification</p>
+
+      <input
+        id="aadhaarInput"
+        type="password"
+        placeholder="XXXX - XXXX - XXXX"
+      >
+
+      <button class="btn-outline" id="btnAadhaar">
+        VERIFY AADHAAR
+      </button>
+
+      <div id="aadhaarStatus" class="status"></div>
+    </section>
+
+    <!-- GOVERNMENT PROOF -->
+    <section class="card">
+      <h3>3. Government Proof</h3>
+      <p>Official document authentication</p>
+
+      <div class="upload-box" id="btnDigiLocker">
+        <p>Connect DigiLocker</p>
+        <span>Govt verified digital documents</span>
+      </div>
+
+      <div id="govStatus" class="status"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card">
+      <h3>4. Contact Network</h3>
+      <p>Dual-factor communication binding</p>
+
+      <div class="grid">
+        <input id="phone" type="tel" placeholder="+91 9XXXXXXXXX">
+        <input id="email" type="email" placeholder="pilot@verify.sys">
+      </div>
+
+      <button class="btn-outline" id="sendPhoneOtp">SEND PHONE OTP</button>
+      <input id="phoneOtp" placeholder="Phone OTP">
+
+      <button class="btn-outline" id="sendEmailOtp">SEND EMAIL OTP</button>
+      <input id="emailOtp" placeholder="Email OTP">
+
+      <div id="otpStatus" class="status"></div>
+    </section>
+
+  </div>
+
+  <!-- RIGHT -->
+  <aside class="score-panel">
+
+    <div class="score-locked">
+      <h2>Reputation Score</h2>
+      <p class="locked-text">
+        Complete all verification steps to unlock your score.
+      </p>
+    </div>
+
+    <div class="score-content">
+      <span class="analysis">AGGREGATE ANALYSIS</span>
+      <h2>Reputation Score</h2>
+
+      <div class="score-circle">
+        <span class="score-number" id="scoreValue">—</span>
+        <span class="score-max">/ 1000 MAX</span>
+      </div>
+
+      <div class="performance">
+        <div class="perf-header">
+          <span>System Performance</span>
+          <strong>EXCELLENT</strong>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+
+        <p>
+          “Current identity metrics indicate high reliability and low-risk profile.”
+        </p>
+      </div>
+
+      <button class="btn-secondary" id="btnCalculate">
+        CALCULATE SCORE →
+      </button>
+
+      <div id="scoreStatus" class="status"></div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

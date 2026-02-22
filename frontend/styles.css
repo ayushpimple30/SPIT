@@ -1,0 +1,231 @@
+/* ===============================
+   GLOBAL THEME
+================================ */
+:root {
+  --bg: #0b1120;
+  --card: #111827;
+  --border: #1f2937;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --success: #22c55e;
+  --error: #ef4444;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #020617, #0b1120);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.app {
+  max-width: 960px;
+  margin: auto;
+  padding: 40px 20px 80px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ===============================
+   CARD
+================================ */
+.card {
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   INPUTS
+================================ */
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #020617;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #818cf8);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #020617;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   STATUS
+================================ */
+.status {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.status.ok {
+  color: var(--success);
+}
+
+.status.err {
+  color: var(--error);
+}
+
+/* ===============================
+   VERIFICATION LIST
+================================ */
+.status-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.status-card li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.status-card li:last-child {
+  border-bottom: none;
+}
+
+.status-card .st-text {
+  color: var(--muted);
+}
+
+.status-card li.done .st-text {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.status-card li.fail .st-text {
+  color: var(--error);
+  font-weight: 600;
+}
+
+/* ===============================
+   SCORE
+================================ */
+.score-card {
+  text-align: center;
+}
+
+.score-display {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 16px 0;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--success);
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===============================
+   NFT
+================================ */
+.nft-card {
+  text-align: center;
+}
+
+.nft-card h2 {
+  margin-bottom: 8px;
+}
+
+.nft-card .hint {
+  margin-bottom: 16px;
+}
+
+/* ===============================
+   FOOTER POLISH
+================================ */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 16px 0;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verified Wallet Identity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
+</head>
+
+<body class="dark">
+
+<div class="app">
+  <header class="header">
+    <h1>✅ Identity Verified</h1>
+    <p class="tagline">Your wallet is now your universal login</p>
+  </header>
+
+  <!-- Wallet Info -->
+  <section class="card">
+    <h2>Wallet</h2>
+    <p id="walletAddress">—</p>
+    <p class="hint">Verified on Sepolia Testnet</p>
+  </section>
+
+  <!-- Identity Proof -->
+  <section class="card">
+    <h2>Identity Proof</h2>
+    <ul class="status-list">
+      <li>Government Proof: <b>Verified</b></li>
+      <li>Aadhaar: <b>Checksum Valid</b></li>
+      <li>Phone & Email: <b>Verified</b></li>
+      <li>Human Check: <b>Passed</b></li>
+    </ul>
+  </section>
+
+  <!-- Blockchain Proof -->
+  <section class="card">
+    <h2>On-Chain Proof</h2>
+    <p><b>Identity Hash:</b></p>
+    <code id="identityHash">—</code>
+    <p class="hint">No PII stored • SHA-256</p>
+  </section>
+
+  <!-- NFT -->
+  <section class="card">
+    <h2>Identity NFT</h2>
+    <p>🎫 Access Credential NFT</p>
+    <p>Valid for 30 days</p>
+  </section>
+
+  <!-- Universal Login -->
+  <section class="card highlight">
+    <h2>🔐 Universal Login</h2>
+    <p>Login to any platform using your wallet</p>
+
+    <button id="btnQrLogin" class="btn btn-primary">
+      Login via QR Code
+    </button>
+  </section>
+</div>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
