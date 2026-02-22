@@ -31,8 +31,6 @@ This repo hosts the full source code, documentation, and implementation details 
 | Deployment       | Vercel / Netlify / Render |
 | Version Control  | Git & GitHub      |
 
-> 💡 You can customize this table to match your actual stack.
-
 ---
 
 ## 🔍 Project Structure
