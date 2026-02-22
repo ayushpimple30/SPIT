@@ -26,9 +26,8 @@ This repo hosts the full source code, documentation, and implementation details 
 
 | Layer             | Technology        |
 |------------------|------------------|
-| Frontend         | React / HTML / CSS / JavaScript |
+| Frontend         | HTML / CSS / JavaScript |
 | Backend          | Node.js / Express |
-| Database         | MongoDB / Firebase / SQLite |
 | Deployment       | Vercel / Netlify / Render |
 | Version Control  | Git & GitHub      |
 
@@ -38,7 +37,7 @@ This repo hosts the full source code, documentation, and implementation details 
 
 ## 🔍 Project Structure
 
-
+```
 ├── src/
 │ ├── components/ # UI Components
 │ ├── pages/ # Pages
@@ -48,7 +47,7 @@ This repo hosts the full source code, documentation, and implementation details 
 ├── .gitignore
 ├── README.md
 └── package.json
-
+```
 
 ---
 
@@ -60,15 +59,18 @@ This repo hosts the full source code, documentation, and implementation details 
 git clone https://github.com/ayushpimple30/SPIT.git
 cd SPIT
 🔹 Install Dependencies
+```
+```
 npm install
+```
 🔹 Run Locally
+```
 npm start
-
+```
 Your application should now be running at:
-
+```
 http://localhost:3000
-
-🎯 You can deploy using Vercel, Netlify, or any cloud provider.
+```
 
 📊 Screenshots
 
@@ -84,40 +86,37 @@ Homepage	Feature View
 
 🤝 Contributors
 Team Leader
-Ayush Pimple	Developer & Project Lead
-Dishant Bhere Frontend
-🔗 Useful Links
-
-🌐 Live Demo: (Add link if deployed)
-📄 Documentation: (Add link if you have extra docs)
-🎥 Demo Video: (Add link if available)
+Ayush Pimple:	Backend & Project Lead
+Dishant Bhere: Frontend
+Rishabh Pandey: Metamask
 
 🙌 How to Contribute
 
 We welcome contributions!
 To contribute:
-
+```
 Fork the repository
-
+```
 Create a new branch
-
+```
 git checkout -b feature/YourFeature
-
+```
 Commit your changes
-
+```
 git commit -m "Add YourFeature"
-
+```
 Push & open a Pull Request
-
+```
+```
 📜 License
-
+```
 Distributed under the MIT License.
 See LICENSE for more details.
-
+```
 ❓ Support
-
+```
 If you have any questions or need help, feel free to open an issue or contact the maintainer.
-
+```
 ⭐ Thank you for visiting this repository! 🚀
 
 
