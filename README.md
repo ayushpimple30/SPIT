@@ -56,9 +56,10 @@ This repo hosts the full source code, documentation, and implementation details 
 ```bash
 git clone https://github.com/ayushpimple30/SPIT.git
 cd SPIT
+```
 🔹 Install Dependencies
 ```
-```
+
 npm install
 ```
 🔹 Run Locally
@@ -103,8 +104,10 @@ Commit your changes
 ```
 git commit -m "Add YourFeature"
 ```
-Push & open a Pull Request
+
+
 ```
+Push & open a Pull Request
 ```
 📜 License
 ```
