@@ -1,142 +1,183 @@
-# Privacy-Preserving Decentralized Identity Verification
+This project introduces a Decentralized Identity Verification Protocol where:
 
-Strict rules: **no personal data stored**, **no database**, **no Aadhaar/face/biometric/IP storage**. Verification is temporary in memory only; only final **reputation score** and **verification status** are written to the blockchain (Sepolia).
+Identity is verified once
 
-## Folder Structure
+Only a cryptographic hash is stored on-chain
 
-```
-.
-├── contracts/
-│   └── ReputationRegistry.sol    # On-chain: score, isVerified, nftExpiry only (deploy via Remix)
-├── backend/                      # Stateless Node.js + Express
-│   ├── .env                      # Copy from .env.example (never commit)
-│   ├── .env.example
-│   ├── package.json
-│   ├── server.js
-│   ├── middleware/
-│   │   ├── rateLimiter.js        # Rate limit (no PII logged)
-│   │   └── captcha.js            # Google reCAPTCHA verification
-│   ├── routes/
-│   │   └── verify.js             # All verification endpoints
-│   ├── services/
-│   │   ├── walletVerification.js # ethers.js signature verify
-│   │   ├── aadhaarValidation.js  # Regex only; number never stored
-│   │   ├── faceVerification.js   # Verify signed score from client
-│   │   ├── biometricSimulation.js# Mock 70–100 score
-│   │   ├── scoreCalculator.js    # Reputation model
-│   │   └── contractService.js    # ethers.js contract writes
-│   └── utils/
-│       └── inMemoryStore.js      # Failed attempts Map; 10 min block
-├── frontend/
-│   ├── index.html                # UI: MetaMask, Aadhaar, face, reCAPTCHA
-│   └── app.js                    # face-api.js (client-side), API calls
-└── README.md
-```
+No raw Aadhaar / documents / PII are stored
 
-## Tech Stack
+Users authenticate using their wallet
 
-- **Solidity + OpenZeppelin** (ReputationRegistry) — compile & deploy via **Remix IDE**
-- **Node.js + Express** (stateless backend)
-- **ethers.js** (signature verification + contract calls)
-- **MetaMask** (connect + sign)
-- **face-api.js** (open source, client-side face comparison)
-- **Google reCAPTCHA** (free tier)
-- **Sepolia** testnet
+Verification is time-bound and revocable
 
-## Features (Privacy Rules)
+🏗️ Architecture Overview
+User
+ │
+ │  Wallet Connect (MetaMask)
+ │
+ ▼
+Frontend Verification UI
+ ├─ Aadhaar Check (Checksum)
+ ├─ Government Proof (DigiLocker Sandbox)
+ ├─ Phone + Email Validation
+ ├─ reCAPTCHA Protection
+ │
+ ▼
+Identity Hash (SHA-256)
+ │
+ ▼
+Smart Contract (IdentityRegistry)
+ ├─ storeIdentityHash()
+ ├─ isVerified()
+ └─ Validity Period
+ │
+ ▼
+QR / Wallet-based Login (No Re-KYC)
+🔐 Core Features
+✅ Wallet-Based Identity
 
-| Feature | Rule | Implementation |
-|--------|------|----------------|
-| Wallet | No wallet data stored | Verify signature with ethers; use only in request |
-| Aadhaar | Do not store number | Regex validate 12 digits; discard immediately |
-| Face | Do not store images | face-api.js in browser; only signed similarity score sent |
-| Captcha | Block if fail | reCAPTCHA server-side verify |
-| Failed attempts | In memory only | Map with 10 min block after 5 failures |
-| Biometric | Mock (no paid API) | Random 70–100; if > 80 verified |
+MetaMask wallet as primary identity
 
-## Reputation Score (in memory, then on-chain)
+No username/passwords
 
-- +20 Wallet signature valid  
-- +15 Aadhaar format valid  
-- +25 Face verified  
-- +20 Biometric verified  
-- +10 Captcha success  
-- +10 No excessive failed attempts  
+✅ Aadhaar Validation
 
-**Eligible** if score ≥ 75. Only then: `setReputation` and `verifyUser` on contract.
+UIDAI Verhoeff checksum validation
 
-## Blockchain (ReputationRegistry)
+No Aadhaar storage
 
-- `setReputation(user, score)` – backend signer only  
-- `verifyUser(user)` – backend signer only  
-- `mintTimeBoundNFT(user)` – 30-day expiry; revert if already active  
-- `checkEligibility(user)` – view  
+✅ Government Proof (DigiLocker – Sandbox)
 
-No Hardhat — contract is deployed only via **Remix IDE**. The backend uses the contract address from Remix in `backend/.env`.
+Simulated DigiLocker verification
 
-## Run Locally
+Age verification (18+)
 
-### 1. Deploy contract in Remix IDE and set `.env`
+Government-issued document proof
 
-1. Open **[Remix IDE](https://remix.ethereum.org)**.
-2. **OpenZeppelin:** Plugin Manager → enable **“OpenZeppelin Contracts”** (or NPM and add `@openzeppelin/contracts`) so Remix can resolve the contract import.
-3. **Contract:** Create `ReputationRegistry.sol` and paste the contents of `contracts/ReputationRegistry.sol`.
-4. **Compile:** Compiler **0.8.20** → Compile.
-5. **Deploy:** Deploy & run → **Injected Provider - MetaMask** → network **Sepolia** → Deploy (wallet needs Sepolia test ETH, e.g. [sepoliafaucet.com](https://sepoliafaucet.com)).
-6. **Copy the deployed contract address** from Remix and put it in `backend/.env`:
-   - `BACKEND_CONTRACT_ADDRESS=` that address (no spaces).
-   - `PRIVATE_KEY=` the **same** deployer wallet’s private key (backend must be the contract owner).
-   - `SEPOLIA_RPC_URL=` e.g. `https://rpc.sepolia.org` (or your RPC URL).
+✅ Privacy-Preserving Blockchain Storage
 
-### 2. Backend
+Stores hash only, not raw data
 
-```bash
-cd backend
-npm install
-npm start
-```
+Time-bound validity (30 days)
 
-Server runs at `http://localhost:3000`. No database; no file storage.
+✅ Reputation Score Engine
 
-### 3. Frontend
+5 verification modules
 
-- Get a **reCAPTCHA v2 site key** and replace in `frontend/index.html`:
+Each module = 20 points
 
-  ```html
-  <div class="g-recaptcha" data-sitekey="YOUR_ACTUAL_SITE_KEY"></div>
-  ```
+Score out of 100
 
-- Serve the frontend (any static server). From project root:
+Eligibility threshold ≥ 75
 
-  ```bash
-  npx serve frontend -p 5500
-  ```
+✅ NFT-Based Proof of Verification
 
-- Open `http://localhost:5500`. Connect MetaMask (Sepolia), complete steps 1–6, then “Calculate score & write to chain” and “Mint time-bound NFT”.
+Time-bound NFT minting
 
-## Backend Endpoints
+Can be used across platforms
 
-| Method | Path | Body | Notes |
-|--------|------|------|--------|
-| POST | `/verify-wallet` | `{ address }` or `{ address, message, signature }` | Returns message to sign if no signature |
-| POST | `/verify-aadhaar` | `{ aadhaar }` | Format only; not stored |
-| POST | `/verify-face` | `{ walletAddress, similarityScore, nonce, signature }` | Client signs score from face-api.js |
-| POST | `/verify-biometric` | `{}` | Simulated; no storage |
-| POST | `/calculate-score` | All flags + `recaptchaToken` + `address` | Writes to chain if eligible |
-| POST | `/mint-nft` | `{ address, recaptchaToken }` | Requires eligible on-chain |
+✅ QR-Based Wallet Login
 
-## Security
+Login anywhere using verified wallet
 
-- Rate limiter middleware (express-rate-limit).  
-- `dotenv` for `PRIVATE_KEY` and secrets; no hardcoded secrets.  
-- Input validation on all endpoints.  
-- No logging of Aadhaar, images, or raw biometric data.  
-- File buffers (if any) cleared after use; face comparison is client-side so server never receives images.
+No re-authentication needed
 
-## CORS
+🧠 Smart Contract
 
-To allow the frontend origin:
+Contract: IdentityRegistry.sol
 
-```env
-CORS_ORIGIN=http://localhost:5500
-```
+Key Functions:
+storeIdentityHash(bytes32 hash)
+isVerified(address user)
+getIdentityHash(address user)
+Guarantees:
+
+Immutable verification proof
+
+Time-limited validity
+
+Zero PII exposure
+
+🛠️ Tech Stack
+Layer	Technology
+Frontend	HTML, CSS, JavaScript
+Wallet	MetaMask
+Blockchain	Ethereum (Sepolia Testnet)
+Smart Contract	Solidity
+Crypto	SHA-256
+Verification	DigiLocker (Sandbox)
+UI/UX	Hackathon-grade dark Web3 UI
+🧪 How It Works (Flow)
+
+Connect MetaMask wallet
+
+Verify Aadhaar (checksum)
+
+Verify government proof via DigiLocker
+
+Verify phone & email
+
+Complete reCAPTCHA
+
+Generate reputation score
+
+Store identity hash on blockchain
+
+Mint verification NFT
+
+Login anywhere using wallet / QR
+
+🚀 How to Run Locally
+git clone https://github.com/ayushpimple30/SPIT.git
+cd SPIT
+
+Open index.html directly in browser
+Ensure MetaMask is installed and connected to Sepolia testnet.
+
+🔒 Privacy & Security
+
+❌ No Aadhaar stored
+
+❌ No documents stored
+
+❌ No biometrics stored
+
+✅ Only cryptographic hashes
+
+✅ User-controlled identity
+
+✅ Zero-trust compliant
+
+🎯 Use Cases
+
+Web3 onboarding
+
+DAO membership
+
+Hackathon identity
+
+NFT-gated access
+
+One-click login for dApps
+
+Government-grade digital identity
+
+🏆 Hackathon Value
+
+✔ Blockchain-native
+✔ Privacy-first
+✔ Scalable
+✔ Real-world relevance
+✔ Clean UX
+✔ Clear problem → solution
+
+👨‍💻 Author
+
+Ayush Pimple
+Blockchain • Web3 • Identity Systems
+
+GitHub: https://github.com/ayushpimple30
+
+📜 License
+
+MIT License
